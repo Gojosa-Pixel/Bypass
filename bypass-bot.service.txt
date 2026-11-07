@@ -1,0 +1,31 @@
+[Unit]
+Description=Telegram Link Bypass & Shortener Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Create the dedicated user first:
+#   sudo useradd -r -s /usr/sbin/nologin botuser
+# and give it the project directory:
+#   sudo chown -R botuser:botuser /opt/telegram-bypass-bot
+User=botuser
+Group=botuser
+WorkingDirectory=/opt/telegram-bypass-bot
+EnvironmentFile=/opt/telegram-bypass-bot/.env
+ExecStart=/opt/telegram-bypass-bot/venv/bin/python bot.py
+Restart=always
+# Restarts after crashes *and* after the auto-updater's clean restart.
+RestartSec=5
+# Start limiting burstiness; give slow PyBypass calls time to finish.
+TimeoutStopSec=30
+SyslogIdentifier=bypass-bot
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

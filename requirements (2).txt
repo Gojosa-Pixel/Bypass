@@ -1,0 +1,28 @@
+# Pinned, known-good baseline used by install.sh / Docker builds.
+# The auto-updater (/update apply or AUTO_UPDATE=true) installs the LATEST
+# releases; if anything ever breaks after an upgrade, re-run install.sh to
+# return to these pins.
+
+# Core Telegram bot framework (async, with JobQueue/APScheduler extra)
+python-telegram-bot[job-queue]~=22.8
+
+# Link bypass engine (ad-shorteners, filehosters, video servers)
+PyBypass==2.0.1
+beautifulsoup4>=4.11.1
+requests>=2.34.2
+
+# Storage & configuration
+aiosqlite>=0.22.1
+python-dotenv>=1.2.3
+
+# Web admin dashboard (v3) — embedded FastAPI/uvicorn server
+fastapi>=0.141.1
+uvicorn>=0.52.4
+jinja2>=3.1
+python-multipart>=0.0.9
+
+# v4: optional extras — the bot degrades gracefully when absent
+# MongoDB backend (DB_BACKEND=mongodb + MONGODB_URI)
+motor>=3.4            # pip install motor
+# Legacy Cloudflare challenge retry helper for the engine's own fetches
+cloudscraper>=1.2.71
