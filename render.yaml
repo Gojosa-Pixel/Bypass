@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: telegram-bypass-bot
+    runtime: python
+    plan: starter
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    healthCheckPath: /_ping
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
+      - key: WEB_ADMIN_PASSWORD
+        sync: false
+      - key: WEB_DASHBOARD_ENABLED
+        value: "true"
+      - key: WEB_HOST
+        value: 0.0.0.0
+      - key: DB_PATH
+        value: /data/bot.db
+      - key: HEARTBEAT_PATH
+        value: /data/heartbeat
+    disk:
+      name: bot-data
+      mountPath: /data
+      sizeGB: 1
